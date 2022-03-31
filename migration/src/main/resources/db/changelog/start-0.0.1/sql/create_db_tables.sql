@@ -22,21 +22,6 @@ CREATE TABLE IF NOT EXISTS "product"
     "id"          BIGINT PRIMARY KEY NOT NULL DEFAULT (nextval('product_seq')),
     "title"       VARCHAR            NOT NULL,
     "description" TEXT                        DEFAULT NULL,
-    "price"       INTEGER                     DEFAULT NULL,
-    "amount"      INTEGER                     DEFAULT 0,
-    "photo_id"    BIGINT                      DEFAULT NULL,
-    "option"      JSON                        DEFAULT NULL,
-    "category_id" BIGINT                      DEFAULT NULL,
-    FOREIGN KEY (photo_id) REFERENCES product_photo (id),
-    FOREIGN KEY (category_id) REFERENCES product_category (id)
-);
-
-CREATE SEQUENCE IF NOT EXISTS product_seq;
-CREATE TABLE IF NOT EXISTS "product"
-(
-    "id"          BIGINT PRIMARY KEY NOT NULL DEFAULT (nextval('product_seq')),
-    "title"       VARCHAR            NOT NULL,
-    "description" TEXT                        DEFAULT NULL,
     "photo_id"    BIGINT                      DEFAULT NULL,
     "option"      JSON                        DEFAULT NULL,
     "category_id" BIGINT                      DEFAULT NULL,
