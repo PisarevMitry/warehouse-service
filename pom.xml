@@ -1,0 +1,34 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>liga.store</groupId>
+        <artifactId>common</artifactId>
+        <version>0.0.1</version>
+    </parent>
+
+    <artifactId>warehouse-service</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>core</module>
+        <module>core-api</module>
+        <module>dependency-management-bom</module>
+        <module>dto</module>
+        <module>utils</module>
+        <module>migration</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20220320</version>
+        </dependency>
+    </dependencies>
+</project>
