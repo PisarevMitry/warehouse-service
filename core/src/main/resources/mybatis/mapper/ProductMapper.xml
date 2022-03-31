@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="liga.store.warehouseservice.core.repository.ProductRepository">
+
+    <resultMap id="ProductEntity"
+               type="liga.store.warehouseservice.core.model.entity.ProductEntity" autoMapping="true">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="ProductEntity">
+        SELECT *
+        FROM warehouse_data.product;
+    </select>
+
+    <select id="findById" resultMap="ProductEntity">
+        SELECT *
+        FROM warehouse_data.product
+        WHERE id = #{productId, jdbcType=BIGINT};
+    </select>
+
+    <select id="findByListId" resultMap="ProductEntity">
+        <bind name="" value=""/>
+        SELECT *
+        FROM warehouse_data.product
+        <choose>
+            <when test="productListId.isEmpty()">
+                ORDER BY id DESC
+                LIMIT 10;
+            </when>
+            <otherwise>
+                WHERE id IN
+                <foreach collection='productListId' item='id' open='(' separator=',' close=')'>
+                    #{id, jdbcType=BIGINT}
+                </foreach>
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO warehouse_data.product (id, title, description, photo_id, option, category_id)
+        VALUES (#{title}, #{description}, #{photoId}, #{option}, #{categoryId});
+    </insert>
+
+    <insert id="insertAll" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO warehouse_data.product (id, title, description, photo_id, option, category_id) VALUES
+        <foreach collection="productEntityList" item="productEntity" separator=",">
+            (#{title}, #{description}, #{photoId}, #{option}, #{categoryId})
+        </foreach>
+    </insert>
+
+    <update id="updateById" parameterType="liga.store.warehouseservice.core.model.entity.ProductEntity">
+        UPDATE warehouse_data.product SET
+        <if test="title != null">
+            title = #{title},
+        </if>
+        <if test="title != null">
+            description = #{description},
+        </if>
+        <if test="title != null">
+            photo_id = #{photoId},
+        </if>
+        <if test="title != null">
+            option = #{option},
+        </if>
+        <if test="title != null">
+            category_id = #{categoryId},
+        </if>
+        WHERE id = #{id};
+    </update>
+
+    <delete id="deleteById">
+        DELETE
+        FROM warehouse_data.product
+        WHERE id = #{productId};
+    </delete>
+</mapper>

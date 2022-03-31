@@ -1,4 +1,4 @@
-package liga.store.warehouseservicecore.model;
+package liga.store.warehouseservice.core.model.entity;
 
 import lombok.Data;
 import org.json.JSONObject;
