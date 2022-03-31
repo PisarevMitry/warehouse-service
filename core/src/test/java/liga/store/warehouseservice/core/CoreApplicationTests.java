@@ -1,4 +1,4 @@
-package liga.store.warehouseservicecore;
+package liga.store.warehouseservice.core;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
