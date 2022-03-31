@@ -4,6 +4,11 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <includeAll path="src/main/resources/liquibase/changelogs"/>
+    <changeSet id="2022-03-31 20:55:00" author="pisarevdmitrii" context="main">
+        <sqlFile path="start-0.0.3/sql/change.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            <sqlFile path="start-0.0.3/sql/rollback/change_rollback.sql" relativeToChangelogFile="true"/>
+        </rollback>
+    </changeSet>
 
 </databaseChangeLog>
