@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS "shipped_product"
 (
     "id"                 BIGINT PRIMARY KEY NOT NULL DEFAULT (nextval('shipped_product_seq')),
     "product_id"         BIGINT             NOT NULL,
-    "amount_difference"  INTEGER                     DEFAULT 0,
+    "amount_difference"  INTEGER            NOT NULL,
     "receiver"           VARCHAR            NOT NULL,
     "sender"             VARCHAR            NOT NULL,
     "carrier"            VARCHAR                     DEFAULT NULL,
