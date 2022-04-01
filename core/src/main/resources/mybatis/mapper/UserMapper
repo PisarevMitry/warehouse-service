@@ -1,0 +1,76 @@
+<!--
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="liga.store.warehouseservice.core.repository.UserRepository">
+
+    <resultMap id="UserEntity"
+               type="liga.store.warehouseservice.core.model.entity.UserEntity" autoMapping="true">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="UserEntity">
+        SELECT *
+        FROM warehouse_data.user;
+    </select>
+
+    <select id="findById" resultMap="UserEntity">
+        SELECT *
+        FROM warehouse_data.user
+        WHERE id = #{userId, jdbcType=BIGINT};
+    </select>
+
+    <select id="findByListId" resultMap="UserEntity">
+        <bind name="" value=""/>
+        SELECT *
+        FROM warehouse_data.user
+        <choose>
+            <when test="userListId.isEmpty()">
+                ORDER BY id DESC
+                LIMIT 10;
+            </when>
+            <otherwise>
+                WHERE id IN
+                <foreach collection='userListId' item='userId' open='(' separator=',' close=')'>
+                    #{id, jdbcType=BIGINT}
+                </foreach>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findByLogin" resultType="liga.store.warehouseservice.core.model.entity.UserEntity">
+        SELECT *
+        FROM warehouse_data.user
+        WHERE login = #{login, jdbcType=VARCHAR};
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO warehouse_data.user (login, password, role_id)
+        VALUES (#{login}, #{password}, #{roleId});
+    </insert>
+
+    <insert id="insertAll" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO warehouse_data.user (login, password, role_id) VALUES
+        <foreach collection="shippedProductEntityList" item="shippedProductEntity" separator=",">
+            (#{login}, #{password}, #{roleId})
+        </foreach>
+    </insert>
+
+    <update id="updateById" parameterType="liga.store.warehouseservice.core.model.entity.UserEntity">
+        UPDATE warehouse_data.user SET
+        <if test="login != null">
+            login = #{login},
+        </if>
+        <if test="password != null">
+            password = #{password},
+        </if>
+        <if test="roleId != null">
+            role_id = #{roleId},
+        </if>
+        WHERE id = #{id};
+    </update>
+
+    <delete id="deleteById">
+        DELETE
+        FROM warehouse_data.user
+        WHERE id = #{userId};
+    </delete>
+</mapper>-->

@@ -1,0 +1,3 @@
+DELETE
+FROM role
+WHERE title IN ('ROLE_OWNER', 'ROLE_ADMIN', 'ROLE_USER');

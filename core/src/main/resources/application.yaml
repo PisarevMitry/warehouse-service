@@ -4,6 +4,11 @@ server:
     context-path: /warehouse-service
 
 spring:
+  security:
+    user:
+      name: myname
+      password: mypassword
+
   datasource:
     url: jdbc:postgresql://localhost:5432/store?currentSchema=warehouse_data
     username: postgres
