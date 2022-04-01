@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="liga.store.warehouseservice.core.repository.AccountingProductRepository">
+
+    <resultMap id="AccountingProductEntity"
+               type="liga.store.warehouseservice.core.model.entity.AccountingProductEntity" autoMapping="true">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="AccountingProductEntity">
+        SELECT *
+        FROM warehouse_data.accounting_product;
+    </select>
+
+    <select id="findById" resultMap="AccountingProductEntity">
+        SELECT *
+        FROM warehouse_data.accounting_product
+        WHERE id = #{accountingProductId, jdbcType=BIGINT};
+    </select>
+
+    <select id="findByListId" resultMap="AccountingProductEntity">
+        <bind name="" value=""/>
+        SELECT *
+        FROM warehouse_data.accounting_product
+        <choose>
+            <when test="accountingProductListId.isEmpty()">
+                ORDER BY id DESC
+                LIMIT 10;
+            </when>
+            <otherwise>
+                WHERE id IN
+                <foreach collection='accountingProductListId' item='id' open='(' separator=',' close=')'>
+                    #{id, jdbcType=BIGINT}
+                </foreach>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findByProductId" resultMap="AccountingProductEntity">
+        SELECT *
+        FROM warehouse_data.accounting_product
+        WHERE product_id = #{ProductId, jdbcType=BIGINT};
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO warehouse_data.accounting_product (id, product_id, amount, price)
+        VALUES (#{productId}, #{amount}, #{price});
+    </insert>
+
+    <insert id="insertAll" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO warehouse_data.accounting_product (id, product_id, amount, price) VALUES
+        <foreach collection="accountingProductEntityList" item="accountingProductEntity" separator=",">
+            (#{productId}, #{amount}, #{price})
+        </foreach>
+    </insert>
+
+    <update id="updateById" parameterType="liga.store.warehouseservice.core.model.entity.AccountingProductEntity">
+        UPDATE warehouse_data.accounting_product SET
+        <if test="productId != null">
+            product_id = #{productId},
+        </if>
+        <if test="amount != null">
+            amount = #{amount},
+        </if>
+        <if test="price != null">
+            price = #{price},
+        </if>
+        WHERE id = #{id};
+    </update>
+
+    <delete id="deleteById">
+        DELETE
+        FROM warehouse_data.accounting_product
+        WHERE id = #{accountingProductId};
+    </delete>
+</mapper>
