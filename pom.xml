@@ -13,10 +13,8 @@
 
     <modules>
         <module>core</module>
-        <module>core-api</module>
         <module>dependency-management-bom</module>
         <module>dto</module>
-        <module>utils</module>
         <module>migration</module>
     </modules>
 

@@ -60,7 +60,7 @@
                 <profile.dataDir>src/main/resources/db/local/data</profile.dataDir>
                 <profile.verbose>true</profile.verbose>
                 <profile.logging>debug</profile.logging>
-                <profile.changelogSchemaName>person_data</profile.changelogSchemaName>
+                <profile.changelogSchemaName>warehouse_data</profile.changelogSchemaName>
             </properties>
         </profile>
     </profiles>

@@ -5,9 +5,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet id="2022-03-31 20:51:00" author="pisarevdmitrii" context="main">
-        <sqlFile path="start-0.0.4/sql/create_table_log.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="start-0.0.4/sql/create_table_user.sql" relativeToChangelogFile="true"/>
         <rollback>
-            <sqlFile path="start-0.0.4/sql/rollback/create_table_log_rollback.sql" relativeToChangelogFile="true"/>
+            <sqlFile path="start-0.0.4/sql/rollback/create_table_user_rollback.sql" relativeToChangelogFile="true"/>
         </rollback>
     </changeSet>
 
