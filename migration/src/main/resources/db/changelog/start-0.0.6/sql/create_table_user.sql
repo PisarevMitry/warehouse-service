@@ -5,5 +5,5 @@ CREATE TABLE "user"
     "login"    VARCHAR,
     "password" VARCHAR,
     "role_id"  INTEGER,
-    FOREIGN KEY ("role_id") REFERENCES "role" ("id")
+    FOREIGN KEY (role_id) REFERENCES role (id)
 );
