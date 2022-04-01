@@ -1,4 +1,4 @@
-package liga.store.warehouseservicecore.model;
+package liga.store.warehouseservice.core.model.entity;
 
 import lombok.Data;
 
@@ -10,5 +10,5 @@ public class ShippedProductEntity {
     String receiver;
     String sender;
     String carrier;
-    String number_of_contract;
+    String numberOfContract;
 }
