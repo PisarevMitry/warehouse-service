@@ -14,68 +14,118 @@
     <packaging>pom</packaging>
 
     <properties>
-        <postgresql.version>42.3.3</postgresql.version>
         <spring.security.version>5.6.2</spring.security.version>
         <spring.boot.version>2.6.5</spring.boot.version>
-        <thymeleaf.version>3.1.0.M1</thymeleaf.version>
-        <!--        myBatis-->
-        <mybatis.version>2.2.2</mybatis.version>
-        <!--        liquibase-->
+
+        <junit.jupiter.version>5.8.2</junit.jupiter.version>
+
+        <jakarta.validation.api.version>3.0.1</jakarta.validation.api.version>
+
+        <postgresql.version>42.3.3</postgresql.version>
         <liquibase.version>4.8.0</liquibase.version>
-        <liquibase.plugin.version>4.8.0</liquibase.plugin.version>
-        <!--        <slf4j.version>1.7.36</slf4j.version>-->
-        <!--        <logback.version>1.2.11</logback.version>-->
+        <mybatis.version>2.2.2</mybatis.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!--   Зависимости Spring -->
             <dependency>
-                <groupId>org.liquibase</groupId>
-                <artifactId>liquibase-core</artifactId>
-                <version>${liquibase.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>${spring.boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
+                <artifactId>spring-boot-starter-web</artifactId>
                 <version>${spring.boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+
+            <!--  Для автоматического тестирования -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
-                <version>${springboot.test.version}</version>
+                <version>${spring.boot.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis.version}</version>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-test</artifactId>
+                <version>${spring.security.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit.jupiter.version}</version>
+                <scope>test</scope>
             </dependency>
 
+            <!-- Зависимости модулей внутри проекта -->
             <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
+                <groupId>liga.store</groupId>
+                <artifactId>warehouse-service-core</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>liga.store</groupId>
+                <artifactId>warehouse-service-dto</artifactId>
+                <version>0.0.1</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>liga.store</groupId>
+                <artifactId>warehouse-service-migration</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+
+            <!-- Для создания и взаимодействия dto -->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${validation-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.validation</groupId>
+                <artifactId>jakarta.validation-api</artifactId>
+                <version>${jakarta.validation.api.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.modelmapper</groupId>
                 <artifactId>modelmapper</artifactId>
                 <version>${model.mapper.version}</version>
             </dependency>
-            <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>${validation-api.version}</version>
-            </dependency>
 
-
+            <!-- Для создания и взаимодействия БД -->
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>${postgresql.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>${liquibase.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
