@@ -37,13 +37,13 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO warehouse_data.product_category (id, title, parent_id)
+        INSERT INTO warehouse_data.product_category ( title, parent_id)
         VALUES (#{title}, #{parentId});
     </insert>
 
     <insert id="insertAll" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO warehouse_data.product_category (id, title, parent_id) VALUES
-        <foreach collection="productEntityList" item="productEntity" separator=",">
+        INSERT INTO warehouse_data.product_category ( title, parent_id) VALUES
+        <foreach collection="productCategoryEntityList" item="productCategoryEntity" separator=",">
             (#{title}, #{parentId})
         </foreach>
     </insert>

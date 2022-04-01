@@ -4,10 +4,10 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="2022-03-31 20:52:00" author="pisarevdmitrii" context="main">
-        <sqlFile path="start-0.0.2/sql/fill_db_tables.sql" relativeToChangelogFile="true"/>
+    <changeSet id="2022-03-31 20:51:00" author="pisarevdmitrii" context="main">
+        <sqlFile path="start-0.0.5/sql/create_table_role.sql" relativeToChangelogFile="true"/>
         <rollback>
-            <sqlFile path="start-0.0.2/sql/rollback/fill_db_tables_rollback.sql" relativeToChangelogFile="true"/>
+            <sqlFile path="start-0.0.5/sql/rollback/create_table_role_rollback.sql" relativeToChangelogFile="true"/>
         </rollback>
     </changeSet>
 

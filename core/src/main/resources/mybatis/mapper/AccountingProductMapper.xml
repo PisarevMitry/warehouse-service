@@ -35,6 +35,7 @@
             </otherwise>
         </choose>
     </select>
+
     <select id="findByProductId" resultMap="AccountingProductEntity">
         SELECT *
         FROM warehouse_data.accounting_product
@@ -42,12 +43,12 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO warehouse_data.accounting_product (id, product_id, amount, price)
+        INSERT INTO warehouse_data.accounting_product (product_id, amount, price)
         VALUES (#{productId}, #{amount}, #{price});
     </insert>
 
     <insert id="insertAll" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO warehouse_data.accounting_product (id, product_id, amount, price) VALUES
+        INSERT INTO warehouse_data.accounting_product ( product_id, amount, price) VALUES
         <foreach collection="accountingProductEntityList" item="accountingProductEntity" separator=",">
             (#{productId}, #{amount}, #{price})
         </foreach>

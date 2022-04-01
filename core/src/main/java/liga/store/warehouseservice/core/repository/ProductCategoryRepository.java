@@ -2,33 +2,33 @@ package liga.store.warehouseservice.core.repository;
 
 import liga.store.warehouseservice.core.model.entity.ProductCategoryEntity;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Mapper
 public interface ProductCategoryRepository extends BasicMethodRepository<ProductCategoryEntity> {
+
     @Override
     List<ProductCategoryEntity> findAll();
 
     @Override
-    ProductCategoryEntity findById(@Param("productCategoryId") Long productCategoryId);
+    ProductCategoryEntity findById(@RequestParam("productCategoryId") Long productCategoryId);
 
     @Override
-    List<ProductCategoryEntity> findByListId(@Param("productCategoryListId") List<Long> productCategoryListId);
+    List<ProductCategoryEntity> findByListId(@RequestParam("productCategoryListId") List<Long> productCategoryListId);
 
     @Override
-    void insert(@RequestBody @Param("productCategoryEntity") ProductCategoryEntity productCategoryEntity);
+    void insert(@RequestParam("productCategoryEntity") ProductCategoryEntity productCategoryEntity);
 
     @Override
-    void insertAll(@RequestBody @Param("productCategoryEntityList") List<ProductCategoryEntity> productCategoryEntityList);
+    void insertAll(@RequestParam("productCategoryEntityList") List<ProductCategoryEntity> productCategoryEntityList);
 
     @Override
-    void updateById(@RequestBody @Param("productCategoryEntity") ProductCategoryEntity productCategoryEntity);
+    void updateById(@RequestParam("productCategoryEntity") ProductCategoryEntity productCategoryEntity);
 
     @Override
-    void deleteById(@Param("productCategoryId") Long productCategoryId);
+    void deleteById(@RequestParam("productCategoryId") Long productCategoryId);
 
 
    /* List<ProductCategoryEntity> findByParentId(@Param("productCategoryId") Long productCategoryId);

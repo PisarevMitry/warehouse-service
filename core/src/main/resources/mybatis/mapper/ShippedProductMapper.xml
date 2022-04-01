@@ -37,13 +37,13 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO warehouse_data.shipped_product (id, product_id, amount_difference, receiver, sender, carrier,
+        INSERT INTO warehouse_data.shipped_product (product_id, amount_difference, receiver, sender, carrier,
                                                     number_of_contract)
         VALUES (#{productId}, #{amountDifference}, #{receiver}, #{sender}, #{carrier}, #{numberOfContract});
     </insert>
 
     <insert id="insertAll" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO warehouse_data.shipped_product (id, product_id, amount_difference, receiver, sender, carrier,
+        INSERT INTO warehouse_data.shipped_product ( product_id, amount_difference, receiver, sender, carrier,
         number_of_contract) VALUES
         <foreach collection="shippedProductEntityList" item="shippedProductEntity" separator=",">
             (#{productId}, #{amountDifference}, #{receiver}, #{sender}, #{carrier},#{numberOfContract})

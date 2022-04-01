@@ -40,9 +40,9 @@ public class AccountingProductController {
         return accountingProductService.findAll();
     }
 
-    @GetMapping("/get/item")
-    AccountingProductDto getAccountingProductById(@RequestParam Long accountingProductId) {
-        return accountingProductService.findById(accountingProductId);
+    @GetMapping("/get/item/{AccountingProductId}")
+    AccountingProductDto getAccountingProductById(@PathVariable Long AccountingProductId) {
+        return accountingProductService.findById(AccountingProductId);
     }
 
     @GetMapping("/get/list")

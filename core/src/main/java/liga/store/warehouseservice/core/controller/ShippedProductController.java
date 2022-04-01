@@ -31,8 +31,8 @@ public class ShippedProductController {
     private final ProductService productService;
     private final AccountingProductController accountingProductController;
 
-    public ShippedProductController(ShippedProductService shippedProductService, AccountingProductService accountingProductService,
-            ProductService productService, AccountingProductController accountingProductController) {
+    public ShippedProductController(ShippedProductService shippedProductService, AccountingProductService accountingProductService, ProductService productService,
+            AccountingProductController accountingProductController) {
         this.shippedProductService = shippedProductService;
         this.accountingProductService = accountingProductService;
         this.productService = productService;

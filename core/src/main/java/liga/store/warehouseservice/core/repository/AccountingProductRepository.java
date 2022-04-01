@@ -2,7 +2,7 @@ package liga.store.warehouseservice.core.repository;
 
 import liga.store.warehouseservice.core.model.entity.AccountingProductEntity;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -13,22 +13,22 @@ public interface AccountingProductRepository extends BasicMethodRepository<Accou
     List<AccountingProductEntity> findAll();
 
     @Override
-    AccountingProductEntity findById(@Param("AccountingProductId") Long AccountingProductId);
+    AccountingProductEntity findById(@RequestParam("accountingProductId") Long accountingProductId);
 
     @Override
-    List<AccountingProductEntity> findByListId(@Param("AccountingProductListId") List<Long> AccountingProductListId);
+    List<AccountingProductEntity> findByListId(@RequestParam("accountingProductListId") List<Long> accountingProductListId);
 
     @Override
-    void insert(@Param("accountingProductEntity") AccountingProductEntity accountingProductEntity);
+    void insert(@RequestParam("accountingProductEntity") AccountingProductEntity accountingProductEntity);
 
     @Override
-    void insertAll(@Param("accountingProductEntityList") List<AccountingProductEntity> accountingProductEntityList);
+    void insertAll(@RequestParam("accountingProductEntityList") List<AccountingProductEntity> accountingProductEntityList);
 
     @Override
-    void updateById(@Param("accountingProductEntity") AccountingProductEntity accountingProductEntity);
+    void updateById(@RequestParam("accountingProductEntity") AccountingProductEntity accountingProductEntity);
 
     @Override
-    void deleteById(@Param("AccountingProductId") Long AccountingProductId);
+    void deleteById(@RequestParam("accountingProductId") Long accountingProductId);
 
-    AccountingProductEntity findByProductId(@Param("productId") Long productId);
+    AccountingProductEntity findByProductId(@RequestParam("productId") Long productId);
 }

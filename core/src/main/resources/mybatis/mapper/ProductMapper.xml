@@ -37,12 +37,12 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO warehouse_data.product (id, title, description, photo_id, option, category_id)
+        INSERT INTO warehouse_data.product (title, description, photo_id, option, category_id)
         VALUES (#{title}, #{description}, #{photoId}, #{option}, #{categoryId});
     </insert>
 
     <insert id="insertAll" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO warehouse_data.product (id, title, description, photo_id, option, category_id) VALUES
+        INSERT INTO warehouse_data.product ( title, description, photo_id, option, category_id) VALUES
         <foreach collection="productEntityList" item="productEntity" separator=",">
             (#{title}, #{description}, #{photoId}, #{option}, #{categoryId})
         </foreach>
@@ -53,16 +53,16 @@
         <if test="title != null">
             title = #{title},
         </if>
-        <if test="title != null">
+        <if test="description != null">
             description = #{description},
         </if>
-        <if test="title != null">
+        <if test="photoId != null">
             photo_id = #{photoId},
         </if>
-        <if test="title != null">
+        <if test="option != null">
             option = #{option},
         </if>
-        <if test="title != null">
+        <if test="categoryId != null">
             category_id = #{categoryId},
         </if>
         WHERE id = #{id};
