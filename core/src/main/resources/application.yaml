@@ -4,11 +4,6 @@ server:
     context-path: /warehouse-service
 
 spring:
-  security:
-    user:
-      name: myname
-      password: mypassword
-
   datasource:
     url: jdbc:postgresql://localhost:5432/store?currentSchema=warehouse_data
     username: postgres
@@ -22,7 +17,16 @@ spring:
       connection-timeout: 120000
       max-lifetime: 120000
       minimum-idle: 4
-#      validation-timeout: 120000
+  #      validation-timeout: 120000
+
+  security:
+    user:
+      name: myname
+      password: mypassword
+
+  liquibase:
+    change-log: classpath:db/master.xml
+    enabled: true
 
 mybatis:
   configuration:
