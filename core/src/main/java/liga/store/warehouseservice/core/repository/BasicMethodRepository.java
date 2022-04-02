@@ -31,24 +31,28 @@ public interface BasicMethodRepository<E> {
     /**
      * Метод для добавления записи в таблицу
      * @param e объект класса Entity
+     * @return результат операции
      */
-    void insert(E e);
+    Boolean insert(E e);
 
     /**
      * Метод для добавления множества записей в таблицу
      * @param eList список объектов класса Entity
+     * @return результат операции
      */
-    void insertAll(List<E> eList);
+    Boolean insertAll(List<E> eList);
 
     /**
      * Метод для изменения записи в таблице
      * @param e обновленный объект класса Entity
+     * @return результат операции
      */
-    void updateById(E e);
+    Boolean updateById(E e);
 
     /**
      * Метод для удаления записи
      * @param id идентификатор записи
+     * @return результат операции
      */
-    void deleteById(Long id);
+    Boolean deleteById(Long id);
 }

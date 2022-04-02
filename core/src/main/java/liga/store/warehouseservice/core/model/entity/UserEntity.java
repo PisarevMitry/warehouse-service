@@ -1,23 +1,22 @@
 package liga.store.warehouseservice.core.model.entity;
 
-/*import lombok.Data;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Set;*/
-/*
+import java.util.Collections;
 
 @Data
 public class UserEntity implements UserDetails {
     private Long id;
     private String login;
     private String password;
-    private Set<UserRole> roles;
+    private UserRole role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+        return Collections.singletonList(getRole());
     }
 
     @Override
@@ -50,6 +49,5 @@ public class UserEntity implements UserDetails {
         return true;
     }
 }
-*/
 
 

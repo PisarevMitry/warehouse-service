@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Service
 public class ShippedProductServiceImpl implements ShippedProductService {
 
@@ -39,30 +40,30 @@ public class ShippedProductServiceImpl implements ShippedProductService {
     }
 
     @Override
-    public void insert(ShippedProductDto shippedProductDto) {
+    public Boolean insert(ShippedProductDto shippedProductDto) {
         ShippedProductEntity shippedProductEntity = modelMapper.map(shippedProductDto, ShippedProductEntity.class);
         if (shippedProductEntity.getId() == null) {
-            shippedProductRepository.insert(shippedProductEntity);
+            return shippedProductRepository.insert(shippedProductEntity);
         } else {
-            shippedProductRepository.updateById(shippedProductEntity);
+            return shippedProductRepository.updateById(shippedProductEntity);
         }
     }
 
     @Override
-    public void insertAll(List<ShippedProductDto> shippedProductDtoList) {
+    public Boolean insertAll(List<ShippedProductDto> shippedProductDtoList) {
         List<ShippedProductEntity> shippedProductEntityList =
                 shippedProductDtoList.stream().map(el -> modelMapper.map(el, ShippedProductEntity.class)).collect(Collectors.toList());
-        shippedProductRepository.insertAll(shippedProductEntityList);
+        return shippedProductRepository.insertAll(shippedProductEntityList);
     }
 
     @Override
-    public void updateById(ShippedProductDto shippedProductDto) {
+    public Boolean updateById(ShippedProductDto shippedProductDto) {
         ShippedProductEntity shippedProductEntity = modelMapper.map(shippedProductDto, ShippedProductEntity.class);
-        shippedProductRepository.updateById(shippedProductEntity);
+        return shippedProductRepository.updateById(shippedProductEntity);
     }
 
     @Override
-    public void deleteById(Long id) {
-        shippedProductRepository.deleteById(id);
+    public Boolean deleteById(Long id) {
+        return shippedProductRepository.deleteById(id);
     }
 }

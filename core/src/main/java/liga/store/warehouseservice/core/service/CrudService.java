@@ -9,11 +9,11 @@ public interface CrudService<D> {
 
     List<D> findByListId(List<Long> listId);
 
-    void insert(D d);
+    Boolean insert(D d);
 
-    void insertAll(List<D> dList);
+    Boolean insertAll(List<D> dList);
 
-    void updateById(D d);
+    Boolean updateById(D d);
 
-    void deleteById(Long id);
+    Boolean deleteById(Long id);
 }

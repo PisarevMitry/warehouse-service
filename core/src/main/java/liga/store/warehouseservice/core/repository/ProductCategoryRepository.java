@@ -19,16 +19,16 @@ public interface ProductCategoryRepository extends BasicMethodRepository<Product
     List<ProductCategoryEntity> findByListId(@RequestParam("productCategoryListId") List<Long> productCategoryListId);
 
     @Override
-    void insert(@RequestParam("productCategoryEntity") ProductCategoryEntity productCategoryEntity);
+    Boolean insert(@RequestParam("productCategoryEntity") ProductCategoryEntity productCategoryEntity);
 
     @Override
-    void insertAll(@RequestParam("productCategoryEntityList") List<ProductCategoryEntity> productCategoryEntityList);
+    Boolean insertAll(@RequestParam("productCategoryEntityList") List<ProductCategoryEntity> productCategoryEntityList);
 
     @Override
-    void updateById(@RequestParam("productCategoryEntity") ProductCategoryEntity productCategoryEntity);
+    Boolean updateById(@RequestParam("productCategoryEntity") ProductCategoryEntity productCategoryEntity);
 
     @Override
-    void deleteById(@RequestParam("productCategoryId") Long productCategoryId);
+    Boolean deleteById(@RequestParam("productCategoryId") Long productCategoryId);
 
 
    /* List<ProductCategoryEntity> findByParentId(@Param("productCategoryId") Long productCategoryId);

@@ -19,14 +19,14 @@ public interface ShippedProductRepository extends BasicMethodRepository<ShippedP
     List<ShippedProductEntity> findByListId(@RequestParam("shippedProductListId") List<Long> shippedProductListId);
 
     @Override
-    void insert(@RequestParam("shippedProductEntity") ShippedProductEntity shippedProductEntity);
+    Boolean insert(@RequestParam("shippedProductEntity") ShippedProductEntity shippedProductEntity);
 
     @Override
-    void insertAll(@RequestParam("shippedProductEntityList") List<ShippedProductEntity> shippedProductEntityList);
+    Boolean insertAll(@RequestParam("shippedProductEntityList") List<ShippedProductEntity> shippedProductEntityList);
 
     @Override
-    void updateById(@RequestParam("shippedProductEntity") ShippedProductEntity shippedProductEntity);
+    Boolean updateById(@RequestParam("shippedProductEntity") ShippedProductEntity shippedProductEntity);
 
     @Override
-    void deleteById(@RequestParam("shippedProductId") Long shippedProductId);
+    Boolean deleteById(@RequestParam("shippedProductId") Long shippedProductId);
 }

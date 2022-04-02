@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Service
 public class ProductCategoryServiceImpl implements ProductCategoryService {
 
@@ -39,31 +40,31 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     @Override
-    public void insert(ProductCategoryDto productCategoryDto) {
+    public Boolean insert(ProductCategoryDto productCategoryDto) {
         ProductCategoryEntity productCategoryEntity = modelMapper.map(productCategoryDto, ProductCategoryEntity.class);
         if (productCategoryEntity.getId() == null) {
-            productCategoryRepository.insert(productCategoryEntity);
+            return productCategoryRepository.insert(productCategoryEntity);
         } else {
-            productCategoryRepository.updateById(productCategoryEntity);
+            return productCategoryRepository.updateById(productCategoryEntity);
         }
     }
 
     @Override
-    public void insertAll(List<ProductCategoryDto> productCategoryDtoList) {
+    public Boolean insertAll(List<ProductCategoryDto> productCategoryDtoList) {
         List<ProductCategoryEntity> productCategoryEntityList =
                 productCategoryDtoList.stream().map(el -> modelMapper.map(el, ProductCategoryEntity.class)).collect(Collectors.toList());
-        productCategoryRepository.insertAll(productCategoryEntityList);
+        return productCategoryRepository.insertAll(productCategoryEntityList);
     }
 
 
     @Override
-    public void updateById(ProductCategoryDto productCategoryDto) {
+    public Boolean updateById(ProductCategoryDto productCategoryDto) {
         ProductCategoryEntity productCategoryEntity = modelMapper.map(productCategoryDto, ProductCategoryEntity.class);
-        productCategoryRepository.updateById(productCategoryEntity);
+        return productCategoryRepository.updateById(productCategoryEntity);
     }
 
     @Override
-    public void deleteById(Long id) {
-        productCategoryRepository.deleteById(id);
+    public Boolean deleteById(Long id) {
+        return productCategoryRepository.deleteById(id);
     }
 }

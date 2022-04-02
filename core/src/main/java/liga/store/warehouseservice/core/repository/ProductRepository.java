@@ -2,7 +2,6 @@ package liga.store.warehouseservice.core.repository;
 
 import liga.store.warehouseservice.core.model.entity.ProductEntity;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -20,16 +19,16 @@ public interface ProductRepository extends BasicMethodRepository<ProductEntity> 
     List<ProductEntity> findByListId(@RequestParam("productListId") List<Long> productListId);
 
     @Override
-    void insert(@RequestParam("productEntity") ProductEntity productEntity);
+    Boolean insert(@RequestParam("productEntity") ProductEntity productEntity);
 
     @Override
-    void insertAll(@RequestParam("productEntityList") List<ProductEntity> productEntityList);
+    Boolean insertAll(@RequestParam("productEntityList") List<ProductEntity> productEntityList);
 
     @Override
-    void updateById(@RequestParam("productEntity") ProductEntity productEntity);
+    Boolean updateById(@RequestParam("productEntity") ProductEntity productEntity);
 
     @Override
-    void deleteById(@RequestParam("productId") Long productId);
+    Boolean deleteById(@RequestParam("productId") Long productId);
 
     //List<ProductEntity> findByListOption(@RequestBody @Param("productEntityOption") JSONObject productEntityOption);
 

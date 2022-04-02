@@ -1,7 +1,11 @@
 package liga.store.warehouseservice.core.repository;
 
+import liga.store.warehouseservice.core.model.entity.UserEntity;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.bind.annotation.RequestParam;
 
-/*
+import java.util.List;
+
 @Mapper
 public interface UserRepository extends BasicMethodRepository<UserEntity> {
 
@@ -15,17 +19,16 @@ public interface UserRepository extends BasicMethodRepository<UserEntity> {
     List<UserEntity> findByListId(@RequestParam("userListId") List<Long> userListId);
 
     @Override
-    void insert(@RequestParam("userEntity") UserEntity userEntity);
+    Boolean insert(@RequestParam("userEntity") UserEntity userEntity);
 
     @Override
-    void insertAll(@RequestParam("UserEntityList") List<UserEntity> UserEntityList);
+    Boolean insertAll(@RequestParam("UserEntityList") List<UserEntity> UserEntityList);
 
     @Override
-    void updateById(@RequestParam("userEntity") UserEntity userEntity);
+    Boolean updateById(@RequestParam("userEntity") UserEntity userEntity);
 
     @Override
-    void deleteById(@RequestParam("userId") Long userId);
+    Boolean deleteById(@RequestParam("userId") Long userId);
 
     UserEntity findByLogin(@RequestParam("login") String login);
 }
-*/

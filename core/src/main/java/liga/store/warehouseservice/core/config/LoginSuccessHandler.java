@@ -1,6 +1,6 @@
 package liga.store.warehouseservice.core.config;
 
-/*import org.springframework.security.core.Authentication;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -9,9 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Set;*/
+import java.util.Set;
 
-/*
 @Component
 public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
@@ -23,10 +22,9 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         } else if (roles.contains("ADMIN")) {
             response.sendRedirect("/admin");
         } else if (roles.contains("USER")) {
-            response.sendRedirect("/user");
+            response.sendRedirect("/");
         }
         super.onAuthenticationSuccess(request, response, authentication);
     }
 }
 
-*/

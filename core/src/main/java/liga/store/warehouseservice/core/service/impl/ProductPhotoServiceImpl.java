@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Service
 public class ProductPhotoServiceImpl implements ProductPhotoService {
 
@@ -39,29 +40,29 @@ public class ProductPhotoServiceImpl implements ProductPhotoService {
     }
 
     @Override
-    public void insert(ProductPhotoDto productPhotoDto) {
+    public Boolean insert(ProductPhotoDto productPhotoDto) {
         ProductPhotoEntity productPhotoEntity = modelMapper.map(productPhotoDto, ProductPhotoEntity.class);
         if (productPhotoEntity.getId() == null) {
-            productPhotoRepository.insert(productPhotoEntity);
+            return productPhotoRepository.insert(productPhotoEntity);
         } else {
-            productPhotoRepository.updateById(productPhotoEntity);
+            return productPhotoRepository.updateById(productPhotoEntity);
         }
     }
 
     @Override
-    public void insertAll(List<ProductPhotoDto> productPhotoDtoList) {
+    public Boolean insertAll(List<ProductPhotoDto> productPhotoDtoList) {
         List<ProductPhotoEntity> productPhotoEntityList = productPhotoDtoList.stream().map(el -> modelMapper.map(el, ProductPhotoEntity.class)).collect(Collectors.toList());
-        productPhotoRepository.insertAll(productPhotoEntityList);
+        return productPhotoRepository.insertAll(productPhotoEntityList);
     }
 
     @Override
-    public void updateById(ProductPhotoDto productPhotoDto) {
+    public Boolean updateById(ProductPhotoDto productPhotoDto) {
         ProductPhotoEntity productPhotoEntity = modelMapper.map(productPhotoDto, ProductPhotoEntity.class);
-        productPhotoRepository.updateById(productPhotoEntity);
+        return productPhotoRepository.updateById(productPhotoEntity);
     }
 
     @Override
-    public void deleteById(Long id) {
-        productPhotoRepository.deleteById(id);
+    public Boolean deleteById(Long id) {
+        return productPhotoRepository.deleteById(id);
     }
 }

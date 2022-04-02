@@ -1,7 +1,18 @@
 package liga.store.warehouseservice.core.service.impl;
 
+import liga.store.warehouseservice.core.model.entity.UserEntity;
+import liga.store.warehouseservice.core.repository.UserRepository;
+import liga.store.warehouseservice.core.service.UserService;
+import liga.store.warehouseservice.dto.UserDto;
+import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
-/*
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -15,7 +26,8 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
-        this.passwordEncoder =  new BCryptPasswordEncoder(12);;
+        this.passwordEncoder = new BCryptPasswordEncoder(12);
+        ;
     }
 
     @Override
@@ -38,49 +50,43 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void insert(UserDto userDto) {
+    public Boolean insert(UserDto userDto) {
         UserEntity userEntity = modelMapper.map(userDto, UserEntity.class);
         if (userEntity.getId() == null) {
-            userRepository.insert(userEntity);
+            return userRepository.insert(userEntity);
         } else {
-            userRepository.updateById(userEntity);
+            return userRepository.updateById(userEntity);
         }
     }
 
     @Override
-    public void insertAll(List<UserDto> userDtoList) {
+    public Boolean insertAll(List<UserDto> userDtoList) {
         List<UserEntity> userEntityList = userDtoList.stream().map(el -> modelMapper.map(el, UserEntity.class)).collect(Collectors.toList());
-        userRepository.insertAll(userEntityList);
+        return userRepository.insertAll(userEntityList);
     }
 
 
     @Override
-    public void updateById(UserDto userDto) {
+    public Boolean updateById(UserDto userDto) {
         UserEntity userEntity = modelMapper.map(userDto, UserEntity.class);
-        userRepository.updateById(userEntity);
+        return userRepository.updateById(userEntity);
     }
 
     @Override
-    public void deleteById(Long id) {
-        userRepository.deleteById(id);
+    public Boolean deleteById(Long id) {
+        return userRepository.deleteById(id);
     }
 
-    public UserEntity findByLogin(String login) {
-        return userRepository.findByLogin(login);
+    @Override
+    public UserDto findByLogin(String login) {
+        UserEntity userEntity = userRepository.findByLogin(login);
+        return modelMapper.map(userEntity, UserDto.class);
     }
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        return findByLogin(login);
+        return userRepository.findByLogin(login);
     }
 
-    public PasswordEncoder getPasswordEncoder() {
-        return passwordEncoder;
-    }
-
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
 }
-*/
 

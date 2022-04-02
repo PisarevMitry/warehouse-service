@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * Контроллер для управления данными о товарах
+ */
 @Validated
 @RestController
-@RequestMapping("/product")
 public class ProductController {
 
     private final ProductService productService;
@@ -26,39 +28,39 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/get")
+    @GetMapping("/product/get")
     List<ProductDto> getAllProductList() {
         return productService.findAll();
     }
 
-    @GetMapping("/get/item")
+    @GetMapping("/product/get/item")
     ProductDto getProductById(@RequestParam Long productId) {
         return productService.findById(productId);
     }
 
-    @GetMapping("/get/list")
+    @GetMapping("/product/get/list")
     List<ProductDto> getProductByListId(@RequestParam List<Long> productListId) {
         return productService.findByListId(productListId);
     }
 
-    @PostMapping("/save/item")
-    void saveProduct(@RequestBody @Valid ProductDto productDto) {
-        productService.insert(productDto);
+    @PostMapping("/owner/product/save/item")
+    Boolean saveProduct(@RequestBody @Valid ProductDto productDto) {
+        return productService.insert(productDto);
     }
 
-    @PostMapping("/save/list")
-    void saveProductList(@RequestBody @Valid List<ProductDto> productDtoList) {
-        productService.insertAll(productDtoList);
+    @PostMapping("/owner/product/save/list")
+    Boolean saveProductList(@RequestBody @Valid List<ProductDto> productDtoList) {
+        return productService.insertAll(productDtoList);
     }
 
-    @PatchMapping("/update/item")
-    void updateProduct(@RequestBody @Valid ProductDto productDto) {
-        productService.updateById(productDto);
+    @PatchMapping("/admin/product/update/item")
+    Boolean updateProduct(@RequestBody @Valid ProductDto productDto) {
+        return productService.updateById(productDto);
     }
 
-    @DeleteMapping("/delete/item")
-    void deleteProduct(@RequestParam Long productId) {
-        productService.deleteById(productId);
+    @DeleteMapping("/owner/product/delete/item")
+    Boolean deleteProduct(@RequestParam Long productId) {
+        return productService.deleteById(productId);
     }
 
 

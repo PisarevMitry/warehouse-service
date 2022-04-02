@@ -16,6 +16,6 @@ public interface LogRepository extends BasicMethodRepository<LogEntity> {
     LogEntity findById(@RequestParam("logId") Long logId);
 
     @Override
-    void insert(@RequestParam("logEntity") LogEntity logEntity);
+    Boolean insert(@RequestParam("logEntity") LogEntity logEntity);
 }
 

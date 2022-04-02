@@ -19,16 +19,16 @@ public interface AccountingProductRepository extends BasicMethodRepository<Accou
     List<AccountingProductEntity> findByListId(@RequestParam("accountingProductListId") List<Long> accountingProductListId);
 
     @Override
-    void insert(@RequestParam("accountingProductEntity") AccountingProductEntity accountingProductEntity);
+    Boolean insert(@RequestParam("accountingProductEntity") AccountingProductEntity accountingProductEntity);
 
     @Override
-    void insertAll(@RequestParam("accountingProductEntityList") List<AccountingProductEntity> accountingProductEntityList);
+    Boolean insertAll(@RequestParam("accountingProductEntityList") List<AccountingProductEntity> accountingProductEntityList);
 
     @Override
-    void updateById(@RequestParam("accountingProductEntity") AccountingProductEntity accountingProductEntity);
+    Boolean updateById(@RequestParam("accountingProductEntity") AccountingProductEntity accountingProductEntity);
 
     @Override
-    void deleteById(@RequestParam("accountingProductId") Long accountingProductId);
+    Boolean deleteById(@RequestParam("accountingProductId") Long accountingProductId);
 
     AccountingProductEntity findByProductId(@RequestParam("productId") Long productId);
 }

@@ -19,16 +19,16 @@ public interface ProductPhotoRepository extends BasicMethodRepository<ProductPho
     List<ProductPhotoEntity> findByListId(@RequestParam("productPhotoListId") List<Long> productPhotoListId);
 
     @Override
-    void insert(@RequestParam("productPhotoEntity") ProductPhotoEntity productPhotoEntity);
+    Boolean insert(@RequestParam("productPhotoEntity") ProductPhotoEntity productPhotoEntity);
 
     @Override
-    void insertAll(@RequestParam("productPhotoEntityList") List<ProductPhotoEntity> productPhotoEntityList);
+    Boolean insertAll(@RequestParam("productPhotoEntityList") List<ProductPhotoEntity> productPhotoEntityList);
 
     @Override
-    void updateById(@RequestParam("productPhotoEntity") ProductPhotoEntity productPhotoEntity);
+    Boolean updateById(@RequestParam("productPhotoEntity") ProductPhotoEntity productPhotoEntity);
 
     @Override
-    void deleteById(@RequestParam("productPhotoId") Long productPhotoId);
+    Boolean deleteById(@RequestParam("productPhotoId") Long productPhotoId);
 
     //List<ProductPhotoEntity> findRecurById(@Param("productPhotoId") Long productPhotoId);
 }

@@ -21,7 +21,6 @@ public class AccountingProductServiceImpl implements AccountingProductService {
         this.modelMapper = modelMapper;
     }
 
-
     @Override
     public List<AccountingProductDto> findAll() {
         List<AccountingProductEntity> accountingProductEntityList = accountingProductRepository.findAll();
@@ -41,31 +40,31 @@ public class AccountingProductServiceImpl implements AccountingProductService {
     }
 
     @Override
-    public void insert(AccountingProductDto accountingProductDto) {
+    public Boolean insert(AccountingProductDto accountingProductDto) {
         AccountingProductEntity accountingProductEntity = modelMapper.map(accountingProductDto, AccountingProductEntity.class);
         if (accountingProductEntity.getId() == null) {
-            accountingProductRepository.insert(accountingProductEntity);
+            return accountingProductRepository.insert(accountingProductEntity);
         } else {
-            accountingProductRepository.updateById(accountingProductEntity);
+            return accountingProductRepository.updateById(accountingProductEntity);
         }
     }
 
     @Override
-    public void insertAll(List<AccountingProductDto> accountingProductDtoList) {
+    public Boolean insertAll(List<AccountingProductDto> accountingProductDtoList) {
         List<AccountingProductEntity> accountingProductEntityList =
                 accountingProductDtoList.stream().map(el -> modelMapper.map(el, AccountingProductEntity.class)).collect(Collectors.toList());
-        accountingProductRepository.insertAll(accountingProductEntityList);
+        return accountingProductRepository.insertAll(accountingProductEntityList);
     }
 
     @Override
-    public void updateById(AccountingProductDto accountingProductDto) {
+    public Boolean updateById(AccountingProductDto accountingProductDto) {
         AccountingProductEntity accountingProductEntity = modelMapper.map(accountingProductDto, AccountingProductEntity.class);
-        accountingProductRepository.updateById(accountingProductEntity);
+        return accountingProductRepository.updateById(accountingProductEntity);
     }
 
     @Override
-    public void deleteById(Long id) {
-        accountingProductRepository.deleteById(id);
+    public Boolean deleteById(Long id) {
+        return accountingProductRepository.deleteById(id);
     }
 
     @Override

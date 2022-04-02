@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,57 +19,55 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Контроллер для управления данными об изменении баланса товаров на складе (данные связаны с товарными накладными)
+ */
 @Validated
 @RestController
-@RequestMapping("/shipped-product")
 public class ShippedProductController {
-
 
     private final ShippedProductService shippedProductService;
     private final AccountingProductService accountingProductService;
     private final ProductService productService;
-    private final AccountingProductController accountingProductController;
 
-    public ShippedProductController(ShippedProductService shippedProductService, AccountingProductService accountingProductService, ProductService productService,
-            AccountingProductController accountingProductController) {
+    public ShippedProductController(ShippedProductService shippedProductService, AccountingProductService accountingProductService, ProductService productService) {
         this.shippedProductService = shippedProductService;
         this.accountingProductService = accountingProductService;
         this.productService = productService;
-        this.accountingProductController = accountingProductController;
     }
 
-    @GetMapping("/get")
+    @GetMapping("/shipped-product/get")
     List<ShippedProductDto> getAllShippedProductList() {
         return shippedProductService.findAll();
     }
 
-    @GetMapping("/get/item")
+    @GetMapping("/shipped-product/get/item")
     ShippedProductDto getShippedProductById(@RequestParam Long shippedProductId) {
         return shippedProductService.findById(shippedProductId);
     }
 
-    @GetMapping("/get/list")
+    @GetMapping("/shipped-product/get/list")
     List<ShippedProductDto> getShippedProductByListId(@RequestParam List<Long> shippedProductListId) {
         return shippedProductService.findByListId(shippedProductListId);
     }
 
-    @PostMapping("/save/item")
+    @PostMapping("/admin/shipped-product/save/item")
     void saveShippedProduct(@RequestBody @Valid ShippedProductDto shippedProductDto) {
         shippedProductService.insert(shippedProductDto);
     }
 
-    @PostMapping("/save/list")
+    @PostMapping("/admin/shipped-product/save/list")
     void saveShippedProductList(@RequestBody @Valid List<ShippedProductDto> shippedProductDtoList) {
         shippedProductService.insertAll(shippedProductDtoList);
     }
 
-    @PatchMapping("/update/item")
+    @PatchMapping("/admin/shipped-product/update/item")
     void updateShippedProduct(@RequestBody @Valid ShippedProductDto shippedProductDto) {
         shippedProductService.updateById(shippedProductDto);
     }
 
-    @DeleteMapping("/delete/item")
-    void deleteNewShippedProduct(@RequestParam Long shippedProductId) {
+    @DeleteMapping("/owner/shipped-product/delete/item")
+    void deleteShippedProduct(@RequestParam Long shippedProductId) {
         shippedProductService.deleteById(shippedProductId);
     }
 
@@ -80,21 +77,22 @@ public class ShippedProductController {
      * Метод для приема товара со склада
      * @param shippedProductDto информация о приеме
      */
-    @PostMapping("/save/receiveGood/item")
-    boolean receiveGood(@RequestBody @Valid ShippedProductDto shippedProductDto) {
+    @PostMapping("/admin/shipped-product/save/receiveGood/item")
+    Boolean receiveGood(@RequestBody @Valid ShippedProductDto shippedProductDto) {
         if (Objects.equals(shippedProductDto.getReceiver(), "warehouse")) {
             AccountingProductDto accountingProductDto = accountingProductService.findByProductId(shippedProductDto.getProductId());
             ProductDto productDto = productService.findById(shippedProductDto.getProductId());
             if (productDto != null) {
                 if (accountingProductDto != null) {
-                    shippedProductService.insert(shippedProductDto);
-                    accountingProductController.updateAmountAccountingProductByProductId(shippedProductDto.getProductId(), shippedProductDto.getAmountDifference());
+                    if (shippedProductService.insert(shippedProductDto)) {
+                        accountingProductDto.setAmount(accountingProductDto.getAmount() + shippedProductDto.getAmountDifference());
+                        return accountingProductService.updateById(accountingProductDto);
+                    } else {
+                        return false;
+                    }
                 } else {
-                    accountingProductService.insert(new AccountingProductDto(null, shippedProductDto.getProductId(), 0, 0));
-                    shippedProductService.insert(shippedProductDto);
-                    accountingProductController.updateAmountAccountingProductByProductId(shippedProductDto.getProductId(), shippedProductDto.getAmountDifference());
+                    return false;
                 }
-                return true;
             } else {
                 return false;
             }
@@ -107,16 +105,22 @@ public class ShippedProductController {
      * Метод для отгрузки товара со склада
      * @param shippedProductDto информация о отгрузке
      */
-    @PostMapping("/save/shipGood/item")
-    void shipGood(@RequestBody @Valid ShippedProductDto shippedProductDto) {
+    @PostMapping("/user/shipped-product/save/shipGood/item")
+    Boolean shipGood(@RequestBody @Valid ShippedProductDto shippedProductDto) {
         if (!(Objects.equals(shippedProductDto.getReceiver(), "warehouse"))) {
             AccountingProductDto accountingProductDto = accountingProductService.findByProductId(shippedProductDto.getProductId());
             if (accountingProductDto != null) {
-                if (accountingProductDto.getAmount() >= shippedProductDto.getAmountDifference()) {
-                    shippedProductService.insert(shippedProductDto);
-                    accountingProductController.updateAmountAccountingProductByProductId(shippedProductDto.getProductId(), -(shippedProductDto.getAmountDifference()));
+                if (shippedProductService.insert(shippedProductDto)) {
+                    accountingProductDto.setAmount(accountingProductDto.getAmount() - shippedProductDto.getAmountDifference());
+                    return accountingProductService.updateById(accountingProductDto);
+                } else {
+                    return false;
                 }
+            } else {
+                return false;
             }
+        } else {
+            return false;
         }
     }
 }

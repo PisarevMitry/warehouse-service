@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,11 +18,10 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Контроллер для управления данными в таблице "Остаток товаров на складе"
+ * Контроллер для управления данными о товарах на складе
  */
 @Validated
 @RestController
-@RequestMapping("/accounting-product")
 public class AccountingProductController {
 
     private final AccountingProductService accountingProductService;
@@ -35,56 +33,58 @@ public class AccountingProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/get")
+    @GetMapping("/accounting-product/get")
     List<AccountingProductDto> getAllAccountingProductList() {
         return accountingProductService.findAll();
     }
 
-    @GetMapping("/get/item/{AccountingProductId}")
-    AccountingProductDto getAccountingProductById(@PathVariable Long AccountingProductId) {
+    @GetMapping("/accounting-product/get/item")
+    AccountingProductDto getAccountingProductById(@RequestParam Long AccountingProductId) {
         return accountingProductService.findById(AccountingProductId);
     }
 
-    @GetMapping("/get/list")
+    @GetMapping("/accounting-product/get/list")
     List<AccountingProductDto> getAccountingProductByListId(@RequestParam List<Long> accountingProductListId) {
         return accountingProductService.findByListId(accountingProductListId);
     }
 
-    @PostMapping("/save/item")
-    void saveAccountingProduct(@RequestBody @Valid AccountingProductDto accountingProductDto) {
+    @PostMapping("/admin/accounting-product/save/item")
+    Boolean saveAccountingProduct(@RequestBody @Valid AccountingProductDto accountingProductDto) {
 
         ProductDto productDto = productService.findById(accountingProductDto.getProductId());
         if (productDto != null) {
-            accountingProductService.insert(accountingProductDto);
+            return accountingProductService.insert(accountingProductDto);
+        } else {
+            return false;
         }
     }
 
-    @PostMapping("/save/list")
-    void saveAccountingProductList(@RequestBody @Valid List<AccountingProductDto> accountingProductDtoList) {
-
-        accountingProductService.insertAll(accountingProductDtoList);
+    @PostMapping("/admin/accounting-product/save/list")
+    Boolean saveAccountingProductList(@RequestBody @Valid List<AccountingProductDto> accountingProductDtoList) {
+        return accountingProductService.insertAll(accountingProductDtoList);
     }
 
-    @PatchMapping("/update/item")
-    void updateAccountingProduct(@RequestBody @Valid AccountingProductDto accountingProductDto) {
+    @PatchMapping("/admin/accounting-product/update/item")
+    Boolean updateAccountingProduct(@RequestBody @Valid AccountingProductDto accountingProductDto) {
         ProductDto productDto = productService.findById(accountingProductDto.getProductId());
         if (productDto != null) {
-            accountingProductService.updateById(accountingProductDto);
+            return accountingProductService.updateById(accountingProductDto);
+        } else {
+            return false;
         }
     }
 
-    @DeleteMapping("/delete/item/type=byid")
-    void deleteAccountingProduct(@RequestParam Long accountingProductId) {
-        accountingProductService.deleteById(accountingProductId);
+    @DeleteMapping("/admin/accounting-product/delete/item/type=byid")
+    Boolean deleteAccountingProduct(@RequestParam Long accountingProductId) {
+        return accountingProductService.deleteById(accountingProductId);
     }
-
 
     /**
      * Метод для поиска товара по номенклатуре
      * @param productId номенклатура товара
      * @return Данные о цене и количестве товара
      */
-    @GetMapping("/get/item/type=byproduct/{productId}")
+    @GetMapping("/accounting-product/get/item/type=byproduct/{productId}")
     AccountingProductDto getAccountingProductByProductId(@PathVariable Long productId) {
         return accountingProductService.findByProductId(productId);
     }
@@ -94,12 +94,14 @@ public class AccountingProductController {
      * @param productId номенклатура товара
      * @param amountDifference изменение количества товара
      */
-    @PatchMapping("/update/amount/item")
-    void updateAmountAccountingProductByProductId(@RequestBody Long productId, @RequestParam Integer amountDifference) {
+    @PatchMapping("/admin/accounting-product/update/amount/item")
+    Boolean updateAmountAccountingProductByProductId(@RequestBody Long productId, @RequestParam Integer amountDifference) {
         AccountingProductDto accountingProductDto = getAccountingProductByProductId(productId);
         if (accountingProductDto != null) {
             accountingProductDto.setAmount(accountingProductDto.getAmount() + amountDifference);
-            accountingProductService.updateById(accountingProductDto);
+            return accountingProductService.updateById(accountingProductDto);
+        } else {
+            return false;
         }
     }
 
@@ -108,12 +110,14 @@ public class AccountingProductController {
      * @param productId номенклатура товара
      * @param newPrice новая цена на товар
      */
-    @PatchMapping("/update/price/item")
-    void updatePriceAccountingProductByProductId(@RequestBody Long productId, @RequestParam Integer newPrice) {
+    @PatchMapping("/admin/accounting-product/update/price/item")
+    Boolean updatePriceAccountingProductByProductId(@RequestBody Long productId, @RequestParam Integer newPrice) {
         AccountingProductDto accountingProductDto = getAccountingProductByProductId(productId);
         if (accountingProductDto != null) {
             accountingProductDto.setPrice(newPrice);
-            accountingProductService.updateById(accountingProductDto);
+            return accountingProductService.updateById(accountingProductDto);
+        } else {
+            return false;
         }
     }
 
@@ -121,11 +125,13 @@ public class AccountingProductController {
      * Метод для удаления товара
      * @param productId номенклатура товара
      */
-    @DeleteMapping("/delete/item/type=byproduct")
-    void deleteAccountingProductByProductId(@RequestBody Long productId) {
+    @DeleteMapping("/admin/accounting-product/delete/item/type=byproduct")
+    Boolean deleteAccountingProductByProductId(@RequestBody Long productId) {
         AccountingProductDto accountingProductDto = getAccountingProductByProductId(productId);
         if (accountingProductDto != null) {
-            deleteAccountingProduct(accountingProductDto.getId());
+            return deleteAccountingProduct(accountingProductDto.getId());
+        } else {
+            return false;
         }
     }
 }

@@ -15,5 +15,5 @@ public class UserDto {
     private String login;
     @NotBlank
     private String password;
-    private String roleId;
+    private String role;
 }

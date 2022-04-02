@@ -40,29 +40,29 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void insert(ProductDto productDto) {
+    public Boolean insert(ProductDto productDto) {
         ProductEntity productEntity = modelMapper.map(productDto, ProductEntity.class);
         if (productEntity.getId() == null) {
-            productRepository.insert(productEntity);
+            return productRepository.insert(productEntity);
         } else {
-            productRepository.updateById(productEntity);
+            return false;
         }
     }
 
     @Override
-    public void insertAll(List<ProductDto> productDtoList) {
+    public Boolean insertAll(List<ProductDto> productDtoList) {
         List<ProductEntity> productEntityList = productDtoList.stream().map(el -> modelMapper.map(el, ProductEntity.class)).collect(Collectors.toList());
-        productRepository.insertAll(productEntityList);
+        return productRepository.insertAll(productEntityList);
     }
 
     @Override
-    public void updateById(ProductDto productDto) {
+    public Boolean updateById(ProductDto productDto) {
         ProductEntity productEntity = modelMapper.map(productDto, ProductEntity.class);
-        productRepository.updateById(productEntity);
+        return productRepository.updateById(productEntity);
     }
 
     @Override
-    public void deleteById(Long id) {
-        productRepository.deleteById(id);
+    public Boolean deleteById(Long id) {
+        return productRepository.deleteById(id);
     }
 }
