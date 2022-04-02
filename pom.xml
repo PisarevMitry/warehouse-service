@@ -18,15 +18,7 @@
         <module>migration</module>
     </modules>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20220320</version>
-        </dependency>
-    </dependencies>
+    <properties>
+        <json.version>20220320</json.version>
+    </properties>
 </project>

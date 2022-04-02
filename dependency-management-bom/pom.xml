@@ -13,19 +13,6 @@
     <artifactId>dependency-management-bom</artifactId>
     <packaging>pom</packaging>
 
-    <properties>
-        <spring.security.version>5.6.2</spring.security.version>
-        <spring.boot.version>2.6.5</spring.boot.version>
-
-        <junit.jupiter.version>5.8.2</junit.jupiter.version>
-
-        <jakarta.validation.api.version>3.0.1</jakarta.validation.api.version>
-
-        <postgresql.version>42.3.3</postgresql.version>
-        <liquibase.version>4.8.0</liquibase.version>
-        <mybatis.version>2.2.2</mybatis.version>
-    </properties>
-
     <dependencyManagement>
         <dependencies>
             <!--   Зависимости Spring -->
@@ -100,11 +87,6 @@
                 <version>${validation-api.version}</version>
             </dependency>
             <dependency>
-                <groupId>jakarta.validation</groupId>
-                <artifactId>jakarta.validation-api</artifactId>
-                <version>${jakarta.validation.api.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.modelmapper</groupId>
                 <artifactId>modelmapper</artifactId>
                 <version>${model.mapper.version}</version>
@@ -125,6 +107,18 @@
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis.version}</version>
+            </dependency>
+
+            <!-- Общие утилиты -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>${json.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
